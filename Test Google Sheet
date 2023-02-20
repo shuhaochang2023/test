@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Auto Content Generator</title>
+  </head>
+  <body>
+    <h1>Auto Content Generator</h1>
+    <form id="content-form">
+      <label for="keyword-input">Keyword:</label>
+      <input type="text" id="keyword-input" name="keyword-input">
+      <button type="button" id="generate-button">1分鐘亞馬遜文案</button>
+    </form>
+    <table>
+      <tbody id="generated-text">
+        <tr>
+          <td>標題:</td>
+          <td id="generated-title"></td>
+        </tr>
+        <tr>
+          <td>5點描述:</td>
+          <td id="generated-five-points"></td>
+        </tr>
+        <tr>
+          <td>產品描述:</td>
+          <td id="generated-product-description"></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <script>
+        const keywordInput = document.querySelector('#keyword-input');
+        const generateButton = document.querySelector('#generate-button');
+        const generatedTitle = document.querySelector('#generated-title');
+        const generatedFivePoints = document.querySelector('#generated-five-points');
+        const generatedProductDescription = document.querySelector('#generated-product-description');
+
+        generateButton.addEventListener('click', () => {
+          const keyword = keywordInput.value;
+          fetch(`https://script.google.com/macros/s/1VRr3bhhlUTUElSqMFMVPRz1MC9D4-09tzGduA2womZnDxfF6ArXvtvI-/exec?keyword=${keyword}`)
+            .then(response => response.json())
+            .then(data => {
+              generatedTitle.textContent = data.title;
+              generatedFivePoints.textContent = data.five_points;
+              generatedProductDescription.textContent = data.product_description;
+            });
+        });
+      </script>
+    </p>
+  </body>
+</html>
